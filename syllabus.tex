@@ -69,6 +69,9 @@ packet = event.parsed
 
 \section{Smart contracts using Ethereum}
 
+\subsection{Solidity basics}
+
+Constructor, method, view, nonpayable, payable, data types, storage locations, best practices, references
 
 \section{Introduction to the demo environment}
 
@@ -190,7 +193,7 @@ eth.getBlock(eth.getTransaction(transactionId).blockNumber).transactions.map(fun
 
 As part of familiarizing ourselves with the concepts of smart contracts and their potential use cases in IoT environments we are going to use a game. The game consists of a pre-implemented and simple smart contract that is modelling an electrical power auction. The has 2 roles: supplier and consumer. The contract is created by the consumer where he specifies the required energy and the approximate time window where he intends to consumed the required power. He also specifies a maximum price to pay for this amount of energy at that time window. The suppliers essentially then monitor these contracts whether they can satisfy them while maximizing their profit the bid accordingly. This model is a sell auction i.e. a smaller price is considered more aggressive. 
 
-The contract has been described in Solidity language and it's current source that is used during this tutorial can be studied \href{https://raw.githubusercontent.com/fecjanky/iot_sc_tutorial/v1.0.4/src/powerbid.sol}{here}.
+The contract has been described in Solidity language and it's current source that is used during this tutorial can be studied \href{https://raw.githubusercontent.com/fecjanky/iot_sc_tutorial/v1.0.6/src/powerbid.sol}{here}.
 
 The contract has the following main states:
 \begin{enumerate}
