@@ -217,9 +217,39 @@ In order to verify certain transactions made in the past, the Merkle Roots and c
 
 
 \section{Smart contracts using Ethereum}
+
+Within the Ethereum framework Smart Contracts are implemented in the form of Decentralized Applications - DApp. These DApps are defined using a higher level programming language that is either :
+\begin{itemize}
+    \item Solidity, that is a statically typed programming language showing similarities to Javascript, C++ and other high level, object oriented languages \cite{solidity_manual}
+    \item Vyper, which is a Python based language still under development \cite{vyper_doc}
+\end{itemize}
+
+Smart contracts defines the data and the protocol on how that data can be changed. Actually since one key feature is that blockchains are immutable change might not be the appropriate term for that but more like how the data should be transformed to get in to a next valid state. This is analogous to various well established immutable algorithms and data structures like: persistent list, m-trie, etc. \cite{persistent_data_structures} 
+
 \subsection{Concepts}\label{sec:EthSmartContracConcepts}
 
+The process of how a smart contract is synthesized onto "executable code" is somewhat similar to other well known 
 Data and code is stored on the blockchain, code can be called using a well known ABI. etc. Add figure on how this adds up
+
+\subsubsection{Simplified concept of Smart Contract operation}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/deploy_0.png}
+    \caption{User constructs smart contract, VM deploys it onto the chain}
+    \label{fig:deploy_0}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/deploy_1.png}
+    \caption{User calls a function of the smart contract, VM executes code, creates transaction, mines block onto the chain}
+    \label{fig:deploy_1}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/deploy_2.png}
+    \caption{Another user calls a different function, at every time point, orange data members indicate a valid state of the contract object}
+    \label{fig:deploy_1}
+\end{figure}
 
 \subsection{Solidity basics}
 
