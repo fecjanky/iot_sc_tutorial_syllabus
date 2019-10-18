@@ -226,6 +226,76 @@ Data and code is stored on the blockchain, code can be called using a well known
 Solidity is an object-oriented, high-level language for implementing smart contracts. Smart contracts are programs which govern the behaviour of accounts within the Ethereum state. Solidity was influenced by C++, Python and JavaScript and is designed to target the Ethereum Virtual Machine (EVM).
 Solidity is statically typed, supports inheritance, libraries and complex user-defined types among other features. With Solidity you can create contracts for uses such as voting, crowdfunding, blind auctions, and multi-signature wallets.\cite{solidity_manual}
 
+\textbf{TODO: clean this up, add more references}
+
+
+Contracts in Solidity are similar to classes in object-oriented languages. They contain persistent data in state variables and functions that can modify these variables. Calling a function on a different contract (instance) will perform an EVM function call and thus switch the context such that state variables are inaccessible. A contract and its functions need to be called for anything to happen. There is no “cron” concept in Ethereum to call a function at a particular event automatically.
+
+Contracts can be created “from outside” via Ethereum transactions or from within Solidity contracts.
+
+IDEs, such as Remix, make the creation process seamless using UI elements.
+
+Creating contracts programmatically on Ethereum is best done via using the JavaScript API web3.js. It has a function called web3.eth.Contract to facilitate contract creation.
+
+When a contract is created, its constructor (a function declared with the constructor keyword) is executed once.
+A constructor is optional. Only one constructor is allowed, which means overloading is not supported.
+
+After the constructor has executed, the final code of the contract is deployed to the blockchain. This code includes all public and external functions and all functions that are reachable from there through function calls. The deployed code does not include the constructor code or internal functions only called from the constructor.
+
+Internally, constructor arguments are passed ABI encoded after the code of the contract itself, but you do not have to care about this if you use web3.js\cite{web3_api}.
+
+Solidity is a statically typed language, which means that the type of each variable (state and local) needs to be specified. Solidity provides several elementary types which can be combined to form complex types.
+
+The concept of “undefined” or “null” values does not exist in Solidity, but newly declared variables always have a default value dependent on its type. To handle any unexpected values, you should use the revert function to revert the whole transaction, or return a tuple with a second bool value denoting success.
+
+Value Types
+Fixed Point Numbers
+Address address: Holds a 20 byte value (size of an Ethereum address).
+address payable: Same as address, but with the additional members transfer and send
+Contract Types
+Fixed-size byte arrays
+Function Types
+
+Function types are the types of functions. Variables of function type can be assigned from functions and function parameters of function type can be used to pass functions to and return functions from function calls. Function types come in two flavours - internal and external functions:
+
+Internal functions can only be called inside the current contract (more specifically, inside the current code unit, which also includes internal library functions and inherited functions) because they cannot be executed outside of the context of the current contract. Calling an internal function is realized by jumping to its entry label, just like when calling a function of the current contract internally.
+
+External functions consist of an address and a function signature and they can be passed via and returned from external function calls.
+
+Function types are notated as follows:
+
+function (<parameter types>) {internal|external} [pure|view|payable] [returns (<return types>)]
+
+Reference Types
+
+Values of reference type can be modified through multiple different names. Contrast this with value types where you get an independent copy whenever a variable of value type is used. Because of that, reference types have to be handled more carefully than value types. Currently, reference types comprise structs, arrays and mappings. If you use a reference type, you always have to explicitly provide the data area where the type is stored: memory (whose lifetime is limited to a function call), storage (the location where the state variables are stored) or calldata (special data location that contains the function arguments, only available for external function call parameters).
+
+An assignment or type conversion that changes the data location will always incur an automatic copy operation, while assignments inside the same data location only copy in some cases for storage types.
+Data location
+
+Every reference type, i.e. arrays and structs, has an additional annotation, the “data location”, about where it is stored. There are three data locations: memory, storage and calldata. Calldata is only valid for parameters of external contract functions and is required for this type of parameter. Calldata is a non-modifiable, non-persistent area where function arguments are stored, and behaves mostly like memory.
+
+Data location and assignment behaviour
+
+Data locations are not only relevant for persistency of data, but also for the semantics of assignments:
+
+    Assignments between storage and memory (or from calldata) always create an independent copy.
+    Assignments from memory to memory only create references. This means that changes to one memory variable are also visible in all other memory variables that refer to the same data.
+    Assignments from storage to a local storage variable also only assign a reference.
+    All other assignments to storage always copy. Examples for this case are assignments to state variables or to members of local variables of storage struct type, even if the local variable itself is just a reference.
+
+Structs
+Solidity provides a way to define new types in the form of structs, which is shown in the following example:
+Mapping Types
+
+You declare mapping types with the syntax mapping(_KeyType => _ValueType). The _KeyType can be any elementary type. This means it can be any of the built-in value types plus bytes and string. User-defined or complex types like contract types, enums, mappings, structs and any array type apart from bytes and string are not allowed. _ValueType can be any type, including mappings.
+
+You can think of mappings as hash tables, which are virtually initialised such that every possible key exists and is mapped to a value whose byte-representation is all zeros, a type’s default value. The similarity ends there, the key data is not stored in a mapping, only its keccak256 hash is used to look up the value.
+
+Because of this, mappings do not have a length or a concept of a key or value being set, and therefore cannot be erased without extra information regarding the assigned keys (see Clearing Mappings).
+
+Constructor, method, view, nonpayable, payable, data types, storage locations, best practices, references 
+
 Development (mention remix IDE)
 
 \section{Introduction to the demo environment}
@@ -459,7 +529,7 @@ TODO: specify tasks: deploy, bid, analyze transactions, etc.
 
 \subsubsection{Specification}
 
-The game participants are guessing numbers. The winner is who chose the smallest number. If a number has been chosen by more than 1 person it is not considered as a valid guess. 1 person can only guess once. The creator offers a prize that (greater than 0 Wei) is to be won by the winner. If at the end of the game there are no valid guesses the creator is considered the winner. Only the winner must be able to withdraw the prize. At construction the owner should be able to specify the total number of guesses that will limit the number of individuals who are able to play the game. The prize mustn't be possible to be withdrawn before the game ends. The results should only be possible to be queried through the programmatic API when the game is over.
+The game participants are guessing numbers. The winner is who choose the smallest number. If a number has been chosen by more than 1 person it is not considered as a valid guess. 1 person can only guess once. The creator offers a prize that (greater than 0 Wei) is to be won by the winner. If at the end of the game there are no valid guesses the creator is considered the winner. Only the winner must be able to withdraw the prize. At construction time the owner should be able to specify the total number of guesses that will limit the number of individuals who are able to play the game. The prize mustn't be possible to be withdrawn before the game ends. The results should only be possible to be queried through the programmatic API when the game is over.
 
 \subsection{Template}
 
