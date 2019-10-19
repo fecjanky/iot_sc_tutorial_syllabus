@@ -1,0 +1,5 @@
+References:
+
+https://mislove.org/publications/Ethereum-IMC.pdf
+
+https://hackernoon.com/getting-deep-into-ethereum-how-data-is-stored-in-ethereum-e3f669d96033
