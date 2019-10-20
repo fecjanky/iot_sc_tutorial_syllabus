@@ -55,8 +55,7 @@
 
 \author{Pal Varga and Ferenc Janky \\ Budapest University of Technology and Economics}
 
-
-\date{v0.9 \\ \\ 2019}
+\date{v0.92 \\ \\ 2019}
 
 \begin{document}
 
@@ -94,28 +93,72 @@ The demo application for the multi-player bidding scenario is available at ...
 
 \section{Motivation: using Blockchains for Industrial IoT}
 
-\subsection{Generic considerations}
+\subsection{General considerations}
 
-Special features and requirements of IIoT
+The domain of Industrial IoT is growing in terms of endpoint numbers, application functions, and multi-player usage scenarios -- among others. When compared to public IoT approaches, the industrial domain proceeds with a much smoother pace, but with great mass -- so its momentum (the product of mass and velocity) is huge, as well. There are several reasons why industry adopts IoT in a more conservative way, including the requirements for real-time operation, security and safety, high reliability, complexity, engineering efficiency, return of investment, and not to forget: trust. It takes time to address all these at once; and it is very risky at any industrial partner to introduce a technological approach for which not all the elements are fully tested -- especially if their current systems function well, although not optimally.
 
-Criteria on Real-time, Security, Trust, Engineering efficiency, etc.
+The technical requirements are already available for everyone who wish to adopt IIoT solutions; and those at the forefront of Industry4.0 movement, has already started to do so. It is the non-technical terms -- e.g., return of investment and trust -- that are hard to justify for every paradigm shift.
 
-\subsection{A short overview of IoT security: issues and solutions}
+Trust among new partners is currently built through the involvement of legal and financial authorities. These introduce background checks, and issue mitigation processes if a new partnership ends up on a wrong track. The involvement of authorities seems necessary, but it does slow the process down, and it has its financial price as well. There is a more traditional way of getting trust: building it slowly by partners (and their trusted ecosystems) working together from smaller towards greater ventures.
+
+The immutable feature of distributed legders, and heir verification through blockchain technology make it possible to leave out certain authorities from the "trust-building" process. Together with smart service contracts, the use of private blockchains within industrial partnerships or ecosystems make transactions fast, secure, safe, trusted, validated and immutable throughout the various supply chains. 
+
+While the current tutorial merely provides an overview and a few hands-on demonstrations on the above issues and solutions, readers are encouraged to study the current surveys on the details of IoT blockchain technologies \cite{BC_IoT_survey} as well as their comprehensive comparisons and applications \cite{BC_IoT_comprehensive}.
+
+\subsection{IoT security: a brief overview on issues and solutions}
+
+There are various known security issues at each layer of the IoT infrastructure. These can be mapped to data security principles -- Confidentiality, Integrity, Availability. Figure~\ref{fig:IoT_Layers} depicts an approach where each layer has different security issues and measures, and operated by different players of the IoT infrastructure, so the have separated mitigation policies. Figure~\ref{fig:IoT_Table} provides an overview of these security categories and their mitigation policies.
+
+\begin{figure}[H]
+    \begin{minipage}{0.48\textwidth}
+     \centering
+     \includegraphics[width=0.95\textwidth]{figures/IoT_Layers.png}
+     \caption{IoT infrastructure layers -- for security assessment \cite{IoT_Security}}
+     \label{fig:IoT_Layers}
+    \end{minipage}\hfill    
+%\end{figure}
+%\begin{figure}[H]
+    \begin{minipage}{0.48\textwidth}
+     \centering
+     \includegraphics[width=0.95\textwidth]{figures/IoT_Security_Layer_Table.png}
+     \caption{Security issue categories and their mitigation - and overview \cite{IoT_Security}}
+     \label{fig:IoT_Table}
+    \end{minipage}\hfill
+\end{figure}
 
 \subsection{Special features of Blockchains to be utilized by IIoT}
 
 \subsubsection{Interoperability across IoT devices, IoT systems and industrial sectors}
+
+IoT data is produced and consumed at various levels of the ecosystem. Various requirements, including real-time, QoS, security, and engineering efficiency necessitate to provide borders around elements of the IoT infrastructure, within which these requirements can be satisfied when compared to the borderless scenario. Automation or IoT local clouds can be formed based on physical or logical closeness. 
+
+It was the Arrowhead framework for industrial IoT that first defined these local clouds \cite{Arrowhead_Interoperability}, within which the interoperability of elements was based on service oriented architecture principles.
+
+Figure \ref{fig:IIoT_intercloud} depicts how the IEC IIoT reference architecture -- with Edge, Platform and Enterprise Levels -- can be covered by the Local Clouds, and its inter-cloud communication of the Arrowhead framework.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{figures/Arrowhead-IIoT.png}
+    \caption{The IEC IIoT Reference Architecture mapped for Arrowhead Local Clouds \cite{IIoT_intercloud}}
+    \label{fig:IIoT_intercloud}
+\end{figure}
+
+While discovery, loose coupling and late binding are provided through the service oriented architecture approach, there are no mechanisms built in for transaction logging, smart service contract handling, or data traceability -- these need to be tackled by further solutions.  
+
 \subsubsection{Traceability and Reliability of IoT data}
-\subsubsection{Improved Security of IoT systems}
-\subsubsection{Autonomic interactions of IoT systems}
 
-security, anonymity and data privacy, trust, accelerated transactions, micropayments, ledger as a distributed and trusted database, cost reductions by removing middlemen, etc.
+While interoperability among IoT systems can be supported by frameworks such as Arrowhead, traceability and reliability of IoT data are still issues to be solves. Distributed ledgers and blockchain technology can provide proper answers to these.
 
-Which kinds of IoT security issues can be covered by BCT, and how?
+In this context, according to \cite{BC_IoT_survey}, Traceability is the capability of tracing and verifying the spatial and temporal information of a data block saved in the blockchain. Each data block saved in a blockchain is attached with a historic timestamp consequently assuring the data traceability. 
 
-\subsubsection{Precautions for Blockchain usage}
+Reliability of IoT data \cite{BC_IoT_survey} is the quality of IoT data being trustworthy. It can be ensured by the integrity enforced by crytographic mechanisms including asymmetric encryption algorithms, hash functions and digital signature, all of which are inherent in blockchains.
 
-Vulnerabilities, Risks, Mitigation. Legal issues
+\subsubsection{Improved Security of IoT system-of-systems through blockchains}
+Although it is not the basic feature of the blockchain, but its message (or transacuion) initiation procedure, the data gets written to the blockchain by using PKI technologies, which covers the \emph{Confidentiality} principle.
+
+Due to the immutable nature of data stored at the distributed ledgers, the \emph{Integrity} principle of data security gets covered -- securing against tampering, or any sorts of modifications. Furthermore, the blockchain protects for traceability.
+
+The \emph{Availability} principle is supported by the distributed nature of the ledger, as a trusted database.
 
 \subsection{When is it beneficial to use BCT for IIoT?}
 
@@ -125,10 +168,24 @@ Figure~\ref{fig:BC_Do_You_Need} depicts one of the rule-of-the-thumb decision di
 %\end{lstlisting}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.95\textwidth]{figures/DoYouNeedBC.jpg}
+    \includegraphics[width=1\textwidth]{figures/DoYouNeedBC.jpg}
     \caption{Do You Need to use Blockchains? (by Jeremy Gardner, 2018)}
     \label{fig:BC_Do_You_Need}
 \end{figure}
+
+
+\subsection{Precautions for Blockchain usage}
+
+While blockchains and their related technologies can provide answers to several issues related to security, anonymity and data privacy, trust, accelerated transactions, micropayments, cost reductions by removing middlemen, ledgers as distributed and trusted databases, etc., they also raise issues that need to be covered before their wide and unquestioned use in the Industrial IoT domain.
+
+First, there is an issue with the number of transactions per second. The current, widely used blockchains can provide a few tens of transactions per second -- whereas the industrial need is more oin the thousands of transactions per second range. 
+
+Second, the mixed usage of private and public blockchains are not clearly solved in practice. While the ecosystems of given supply chains can use private blockchains, they may not easily mix with other blockchains of other private ecosystems, not to mention public blockchains and their access rights. Moreover, there is a scalability dilemma between public and private blockchains as well.
+
+Third, security. It sounds unreasonable -- too costly -- to tamper around blockchain data; but it is not impossible. Where the stakes are high, the weakest link of the chain can be a blockchain as well; with its known vulnerabilities: the 51\% attack, the race attack, finney attacks, hidden bugs in smart contracts, just to mention a few.
+
+Fourth, the legal issues. While it seems a clear advantage (in price, speed and flexibility) of not using central authorities in a multi-stakeholder environment, we are talking about rigid company structures with personal responsibilities, at the same time. It requires a hih amount of confidence in the technology as well as the legal consequences of tampering blockchain-stored data. As they say, you cannot solve social issues by using technology.
+
 
 
 \section{Blockchain-related concepts}
@@ -137,7 +194,7 @@ This subsection aims to provide some basic references related to Blockchains. Th
 
 Nevertheless, readers are encouraged to check out the cited further resources and targeted tutorials on these concepts. The cited references are deliberately chosen from various sources to show the wide range of tutorial materials available for readers at various levels of interest. 
 
-\subsubsection{Blockchain}
+\subsection{Blockchain}
 As $techterms.com$ \cite{techterms} defines (with slight additions):
 \begin{quote}
     "A blockchain is a digital record of transactions. The name comes from its structure, in which individual records, called blocks, are linked together in single list, called a chain. Blockchains are used for recording transactions made with cryptocurrencies, such as Bitcoin, and have many other applications -- including smart service contracts for IoT.
@@ -147,7 +204,7 @@ As $techterms.com$ \cite{techterms} defines (with slight additions):
     When a new block is added to a blockchain, it is linked to the previous block using a cryptographic hash generated from the contents of the previous block. This ensures the chain is never broken and that each block is permanently recorded. It is also intentionally difficult to alter past transactions in blockchain since all the subsequent blocks must be altered first."
 \end{quote}
 
-\subsection{A sample workflow of Blockchain-related processes}
+\subsubsection{A sample workflow of Blockchain-related processes}
 
 Figure~\ref{fig:BC_Workflow} depicts a sample workflow.
 %\begin{lstlisting}[language=python,frame=single,breaklines]
@@ -193,7 +250,7 @@ In order to help compressing blockchain data for those nodes who are not interes
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{figures/merkle_tree.jpg}
+    \includegraphics[width=0.4\textwidth]{figures/merkle_tree.jpg}
     \caption{Merkle Tree \cite{tutorialspoint}}
     \label{fig:merkle}
 \end{figure}
@@ -213,12 +270,24 @@ In order to verify certain transactions made in the past, the Merkle Roots and c
 
 \subsection{Smart Contracts}
 
-\subsection{Issues related to the IIoT domain}
+According to Wikipedia, \cite{Wiki_SC} A smart contract is a computer protocol intended to digitally facilitate, verify, or enforce the negotiation or performance of a contract. Smart contracts allow the performance of credible transactions without third parties. These transactions are trackable and irreversible.
+
+There are various kinds of contractual clauses may be made partially or fully self-executing, self-enforcing, or both. The aim of smart contracts is to provide security that is superior to traditional contract law and to reduce other transaction costs associated with contracting. See Figure \ref{fig:smartcontracts} for some of the main features of smart contracts on blockchains.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/smart-contracts-01.png}
+    \caption{Smart contracts on the blockchain}
+    \label{fig:smartcontracts}
+\end{figure}
+
+
+The idea of smart contracts were first proposed by Nick Szabo -- who, by the way, has Hungarian origins, as well.
 
 
 \section{Smart contracts using Ethereum}
 
-Within the Ethereum framework Smart Contracts are implemented in the form of Decentralized Applications - DApp. These DApps are defined using a higher level programming language that is either :
+Within the Ethereum framework Smart Contracts are implemented in the form of Decentralized Applications - DApp. These DApps are defined using a higher level programming language that is either:
 \begin{itemize}
     \item Solidity, that is a statically typed programming language showing similarities to Javascript, C++ and other high level, object oriented languages \cite{solidity_manual}
     \item Vyper, which is a Python based language still under development \cite{vyper_doc}
@@ -229,9 +298,14 @@ Smart contracts defines the data and the protocol on how that data can be change
 \subsection{Concepts}\label{sec:EthSmartContracConcepts}
 
 The process of how a smart contract is synthesized onto "executable code" is somewhat similar to other well known 
-Data and code is stored on the blockchain, code can be called using a well known ABI. etc. Add figure on how this adds up
+Data and code is stored on the blockchain, code can be called using a well known ABI. etc.
 
-\subsubsection{Simplified concept of Smart Contract operation}
+%Add figure on how this adds up
+
+%\subsubsection{Simplified concept of Smart Contract operation}
+
+In the following we summarize a simplified concept of Smart Contract operation.
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{figures/deploy_0.png}
@@ -247,7 +321,7 @@ Data and code is stored on the blockchain, code can be called using a well known
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{figures/deploy_2.png}
-    \caption{Another user calls a different function, at every time point, orange data members indicate a valid state of the contract object}
+    \caption{Another user calls a different function, at every point of time, orange data members indicate a valid state of the contract object}
     \label{fig:deploy_1}
 \end{figure}
 
@@ -316,9 +390,10 @@ Data locations are not only relevant for persistency of data, but also for the s
 
 Structs
 Solidity provides a way to define new types in the form of structs, which is shown in the following example:
-Mapping Types
+Mapping Types.
 
-You declare mapping types with the syntax mapping(_KeyType => _ValueType). The _KeyType can be any elementary type. This means it can be any of the built-in value types plus bytes and string. User-defined or complex types like contract types, enums, mappings, structs and any array type apart from bytes and string are not allowed. _ValueType can be any type, including mappings.
+You declare mapping types with the syntax mapping(\_KeyType $\rightarrow$ \_ValueType).
+The \_KeyType can be any elementary type. This means it can be any of the built-in value types plus bytes and string. User-defined or complex types like contract types, enums, mappings, structs and any array type apart from bytes and string are not allowed. \_ValueType can be any type, including mappings.
 
 You can think of mappings as hash tables, which are virtually initialised such that every possible key exists and is mapped to a value whose byte-representation is all zeros, a type’s default value. The similarity ends there, the key data is not stored in a mapping, only its keccak256 hash is used to look up the value.
 
@@ -341,7 +416,7 @@ The \href{https://blockchain.cnsm2019-tutorial.com/}{demo environment} - as illu
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{figures/env.png}
+    \includegraphics[width=0.8\textwidth]{figures/env.png}
     \caption{The tutorial environment}
     \label{fig:demo-env}
 \end{figure}
@@ -368,7 +443,7 @@ After logging in to the web page, you should see your ethereum account's address
 \end{figure}
 
 \begin{enumerate}[label=\textbf{Task \arabic*}:,l_tasks]
-\item Check your balance using the \texttt{geth} node in console mode using commands found in listings \ref{lst:attach} and \ref{lst:balance}
+\item Check your balance using the \texttt{geth} node in console mode using commands found in listings \ref{lst:attach} \& \ref{lst:balance}.
 \end{enumerate}
 
 \begin{lstlisting}[language=bash,caption={attach to geth node},label={lst:attach}]
@@ -465,7 +540,7 @@ The contract has the following main phases:
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{figures/state_diagram.png}
+    \includegraphics[width=0.95\textwidth]{figures/state_diagram.png}
     \caption{The state diagram of the PowerBid smart contract}
     \label{fig:State-diagram-powerbid}
 \end{figure}
