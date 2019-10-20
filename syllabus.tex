@@ -56,7 +56,7 @@
 \author{Pal Varga and Ferenc Janky \\ Budapest University of Technology and Economics}
 
 
-\date{v0.9 \\ \\ 2019}
+\date{v0.9 \\ 2019}
 
 \begin{document}
 
@@ -318,7 +318,7 @@ Structs
 Solidity provides a way to define new types in the form of structs, which is shown in the following example:
 Mapping Types
 
-You declare mapping types with the syntax mapping(_KeyType => _ValueType). The _KeyType can be any elementary type. This means it can be any of the built-in value types plus bytes and string. User-defined or complex types like contract types, enums, mappings, structs and any array type apart from bytes and string are not allowed. _ValueType can be any type, including mappings.
+You declare mapping types with the syntax mapping(KeyType => ValueType). The KeyType can be any elementary type. This means it can be any of the built-in value types plus bytes and string. User-defined or complex types like contract types, enums, mappings, structs and any array type apart from bytes and string are not allowed. ValueType can be any type, including mappings.
 
 You can think of mappings as hash tables, which are virtually initialised such that every possible key exists and is mapped to a value whose byte-representation is all zeros, a type’s default value. The similarity ends there, the key data is not stored in a mapping, only its keccak256 hash is used to look up the value.
 
