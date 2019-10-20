@@ -293,18 +293,18 @@ Within the Ethereum framework Smart Contracts are implemented in the form of Dec
     \item Vyper, which is a Python based language still under development \cite{vyper_doc}
 \end{itemize}
 
-Smart contracts defines the data and the protocol on how that data can be changed. Actually since one key feature is that blockchains are immutable change might not be the appropriate term for that but more like how the data should be transformed to get in to a next valid state. This is analogous to various well established immutable algorithms and data structures like: persistent list, m-trie, etc. \cite{persistent_data_structures} 
+Solidity is an object-oriented, high-level language for implementing smart contracts. Smart contracts are programs which govern the behaviour of accounts within the Ethereum state. Solidity was influenced by C++, Python and JavaScript and is designed to target the Ethereum Virtual Machine (EVM).
+Solidity is statically typed, supports inheritance, libraries and complex user-defined types among other features. With Solidity you can create contracts for uses such as voting, crowdfunding, blind auctions, and multi-signature wallets.\cite{solidity_manual}
 
-\subsection{Concepts}\label{sec:EthSmartContracConcepts}
+The process of how a smart contract is synthesized into "executable code" is somewhat similar to other well known paradigms of other high level programming languages. The contract code is compiled to low-level, assembly like code that is executed by the Ethereum Virtual Machine (EVM). The data and code is stored on the blockchain, the code can be called using a well known ABI that corresponds to an API that can also be used in the higher level programming language. etc.
 
-The process of how a smart contract is synthesized onto "executable code" is somewhat similar to other well known 
-Data and code is stored on the blockchain, code can be called using a well known ABI. etc.
+Smart contracts define the data and the protocol on how that data can be changed. Actually since one key feature is that blockchains are immutable, change might not be the appropriate term for that but more like how the data should be transformed to get in to a next valid state. This is analogous to various well established immutable algorithms and data structures used in pure functional programming, such as persistent list, m-trie, etc. 
 
 %Add figure on how this adds up
 
 %\subsubsection{Simplified concept of Smart Contract operation}
 
-In the following we summarize a simplified concept of Smart Contract operation.
+In the following figures we summarize a simplified concept of Smart Contract operation.
 
 \begin{figure}[H]
     \centering
@@ -322,14 +322,15 @@ In the following we summarize a simplified concept of Smart Contract operation.
     \centering
     \includegraphics[width=0.9\textwidth]{figures/deploy_2.png}
     \caption{Another user calls a different function, at every point of time, orange data members indicate a valid state of the contract object}
-    \label{fig:deploy_1}
+    \label{fig:deploy_2}
 \end{figure}
 
-\subsection{Solidity basics}
+%\subsection{Solidity basics}
 
-Solidity is an object-oriented, high-level language for implementing smart contracts. Smart contracts are programs which govern the behaviour of accounts within the Ethereum state. Solidity was influenced by C++, Python and JavaScript and is designed to target the Ethereum Virtual Machine (EVM).
-Solidity is statically typed, supports inheritance, libraries and complex user-defined types among other features. With Solidity you can create contracts for uses such as voting, crowdfunding, blind auctions, and multi-signature wallets.\cite{solidity_manual}
 
+
+\iffalse
+\begin{comment}
 \textbf{TODO: clean this up, add more references}
 
 
@@ -403,6 +404,7 @@ Because of this, mappings do not have a length or a concept of a key or value be
 Constructor, method, view, nonpayable, payable, data types, storage locations, best practices, references 
 
 Development (mention remix IDE)
+\fi
 
 \section{Introduction to the demo environment}
 
@@ -422,107 +424,98 @@ The \href{https://blockchain.cnsm2019-tutorial.com/}{demo environment} - as illu
     \label{fig:demo-env}
 \end{figure}
 
-Registration is available, but at the beginning of the hands-on part of the tutorial the participants will receive usernames and passwords to use as that accounts will be pre-filled so that contract deployment can be performed right away.
+\subsection{Login details}
 
-For using the \texttt{geth} console the participants are expected to be able to login to \url{ssh://tutorial@blockchain.cnsm2019-tutorial.com:2222} i.e. SSH using port \textbf{2222} and using username \texttt{tutorial} to host \url{blockchain.cnsm2019-tutorial.com}. The password to be used will be provided during the tutorial session.
+\begin{itemize}
+\item Demo environment: \url{https://blockchain.cnsm2019-tutorial.com/}
+\begin{itemize}
+\item username: \verb!user<X>! , where is \verb!<X>! is a number,  e.g.: \verb!user11!, the number allocation will happen at the time of starting the hands-on exercises
+\item password: same as the username, e.g \verb!user11!
+\end{itemize}
+\item SSH access details:
+\begin{itemize} 
+\item host: blockchain.cnsm2019-tutorial.com
+\item port: 2222
+\item username: tutorial
+\item password: cnsm2019
+\end{itemize}
+\end{itemize}
 
-\section{Tutorial exercises}
+\subsection{Attaching to \emph{geth} node}
 
-\subsection{Verify logins}
+\begin{itemize}
+\item SSH onto host specified above
+\item Attach to \emph{geth} blockchain node by issueing command \verb!sudo ./admin/geth_attach!
+\item the \emph{tutorial} user's password has to be given again
+\end{itemize}
 
-\begin{enumerate}[label=\textbf{Task \arabic*}:, series=l_tasks]
-\item login both to the WebUI and to the backend host using ssh.
-\end{enumerate}
+\subsection{Most frequently used \emph{geth} commands}
 
-After logging in to the web page, you should see your ethereum account's address in the top left portion of the screen(see Figure \ref{fig:login-user-acc}). After this step verify that you are able to log in using SSH to the back-end.
+\begin{itemize}
+\item the \emph{geth} console is a javascript REPL, any valid Javascript code is accepted. The commands below are actually \emph{web3} API calls, for all available commands see \url{https://web3js.readthedocs.io/en/v1.2.1/getting-started.html}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.6\textwidth]{figures/login-useracc.png}
-    \caption{Displayed user account}
-    \label{fig:login-user-acc}
-\end{figure}
+\item \verb!<variable name> = <expression>! assigns the result of expression  \verb!<expression>! to the variable named \verb!<variable>!, e.g. \verb!block34 = eth.getBlock(34)! that means assign the block object of block 34 to the variable named \verb!block34!
 
-\begin{enumerate}[label=\textbf{Task \arabic*}:,l_tasks]
-\item Check your balance using the \texttt{geth} node in console mode using commands found in listings \ref{lst:attach} \& \ref{lst:balance}.
-\end{enumerate}
 
-\begin{lstlisting}[language=bash,caption={attach to geth node},label={lst:attach}]
-sudo ./admin/geth_attach 
+\item to define any custom function define a Javascript function and assign it to a variable:
+
+\begin{lstlisting}[language=javascript]
+myFunction = function(param1,param2,...) {
+ // body of the function
+}
+
+// call the function with arguments
+myFunction(arg1,arg2,...)
 \end{lstlisting}
 
-\begin{lstlisting}[language=javascript,caption={Function for checking balance},label={lst:balance}]
-account="0x31773dE44FD9683F56C7aE7ea0e8bf3Ba7b9F717" //replace with your account
-eth.getBalance(account)
-\end{lstlisting}
 
-You should see a number greater than 0. The \verb!geth! console is a javascript REPL and essentially the commands that can be used are the ones the web3 API exposes. For further reference of functions please study the corresponding \href{https://web3js.readthedocs.io/en/v1.2.1/web3.html}{web3 API documentation}.
+\item \verb!eth.getBalance(<account>)! for checking the balance of an account, where \verb!<account>! is a string literal having the value of the address of an Ethereum account or a deployed smart contract, e.g. \verb!eth.getBalance("0x9afeD102A10D54Cc6C0E5153752c69B4876A7419")!
 
+\item \verb!web3.toWei(<value>,<dimension>)! for getting the equivalent value in \emph{Wei}s of the specified amount, where \verb!<value>! is a number literal and \verb!<dimension>! is a string literal having the name of a valid etherum metic, e.g. \verb!web3.toWei(3.14,"ether")!
 
-After successful execution something similar should be seen:
-\begin{verbatim}
-tutorial@87cd2f75a465:~$ sudo ./admin/geth_attach 
-[sudo] password for tutorial: 
-Welcome to the Geth JavaScript console!
+\item \verb!eth.getBlock(<block Number>)! for displaying the given block's data
 
-instance: Geth/v1.9.1-stable-b7b2f60f/linux-amd64/go1.12.7
-coinbase: 0xf5573ac8504e8280c43806c156ff52984bc35c16
-at block: 1133 (Sun, 13 Oct 2019 10:08:50 UTC)
- datadir: /iot_sc_tutorial/datadir
- modules: admin:1.0 debug:1.0 eth:1.0 ethash:1.0 miner:1.0 net:1.0 personal:1.0 rpc:1.0 txpool:1.0 web3:1.0
+\item \verb!eth.getTransaction(<block Number>)! for displaying the given transaction's data
 
-> eth.getBalance("0x9afeD102A10D54Cc6C0E5153752c69B4876A7419")
-1e+22
-> 
-\end{verbatim}
+\item \verb!eth.getGasPrice(console.log)! this function returns the median price of the last couple of executed transactions
 
-As one can notice this \verb!eth.getBalance! function returns the balance in \emph{Wei} dimension. There's a utility function called \verb!web.toWei! in the web3 module which can be used to transform between units e.g. to get the balance in \emph{ether} the following can be executed:
-\begin{verbatim}
-> eth.getBalance(account)/web3.toWei(1,"ether")
-10000
-> 
-\end{verbatim}
+\item \verb!eth.getTransactionCount(<account>,[<block specifier>])!, get the total transaction count for acount indicated by \verb!<account>!, optionally a block specifier can be supplied, e.g.: \\ \verb!eth.getTransactionCount("0x9afeD102A10D54Cc6C0E5153752c69B4876A7419","pending")! will get the transaction count for the given address including the pending transactions waiting in queue to be mined onto the blockchain
 
+\item \verb!personal.signTransaction(<Transaction object>, <password>)! to sign a transaction with the senders private key represented by \verb!<Transaction object>! object where the sender's account has \verb!<password>! (string literal) as password, where a transaction has the following parameters
 
-\subsection{Transactions using the console}
+\begin{itemize}
 
-As a next step we will initiate transactions using the \verb!geth! console.
+\item \verb!from! : the sender's address
 
-\begin{enumerate}[label=\textbf{Task \arabic*}:,l_tasks]
-\item Select one of your peers as recipient and transfer 1 ether to them using the console. Check your balance before and after the transaction. The corresponding function to use is \ref{lst:balance} and \ref{lst:transfer}
-\end{enumerate}
+\item \verb!to! : the receiver's address
 
-\begin{lstlisting}[language=javascript,caption={Functions to be used for signing and sending a transaction},label={lst:transfer}]
-myself="0x9afeD102A10D54Cc6C0E5153752c69B4876A7419" // replace with your account
-recipient="0x3FecF304285303Fba1C34124889Ea1256e9BB0de" // replace with the target account
-password="user1" // replace with your password
+\item \verb!value! : the amount of \emph{Wei}s to be transferred to the receiver from the sender with this transaction
 
+\item \verb!gas! : the amount of gas that can be consumed by the EVM for executing this transaction
+
+\item \verb!gasPrice! : the price to be paid by the sender per units of gas consumed, the maximum price of the transaction will be \verb!value + gas*gasPrice!, if only fraction of the specified gas has been used by EVM, only the proportional price has to be paid while in contrast if the supplied gas was not enough the transaction will be reverted, but the gas price still has to be paid
+
+\item \verb!nonce! : this is different from the block nonce in case of Proof-of-Work. This one indicates the total transaction count of the user in order to prevent double spending
+
+\item \verb!data! : optional field, the additional data for this transaction, the code and data members are stored in this section of the transaction
+
+\item Example:
+\begin{lstlisting}[language=javascript,label=lst:transfer]
 signedTransaction = personal.signTransaction({
-    from: myself,
-    to: recipient,
+    from: "0x9afeD102A10D54Cc6C0E5153752c69B4876A7419",
+    to: "0x3FecF304285303Fba1C34124889Ea1256e9BB0de",
     value: web3.toWei(1,"ether"),
     gas: 200000, 
-    gasPrice:eth.gasPrice,
-    nonce: eth.getTransactionCount(myself)
-    },password )
-
-
-transactionId = eth.sendRawTransaction(signedTransaction.raw)
-
-eth.getTransaction(transactionId)
+    gasPrice: 10,
+    nonce: eth.getTransactionCount("0x9afeD102A10D54Cc6C0E5153752c69B4876A7419")
+    },"user1" )
 \end{lstlisting}
 
-It could be that initial result of the transaction data might not contain the block hash and block number as it is in pending. In such case repeat the \verb!eth.getTransaction(transactionId)! command until those fields are populated
+\end{itemize}
 
-\begin{enumerate}[label=\textbf{Task \arabic*}:,l_tasks]
-\item Analyze the block that contains your previous transaction, and check which other transactions might reside in the same block as yours using the commands in listing \ref{lst:block}
-\end{enumerate}
+\item \verb!eth.sendRawTransaction(<Raw Transaction data>)! sends and execute the  provided transaction where \\ \verb!<Raw Transaction data>! is the raw transaction data in a hexadecimal string format, using the signed transaction object the raw transaction can be accessed by the \verb!raw! member variable, e.g.: \\ \verb!eth.sendRawTransaction(signedTransaction.raw)!
 
-\begin{lstlisting}[language=javascript,caption={Functions for analyzing a block},label={lst:block}]
-eth.getBlock(eth.getTransaction(transactionId).blockNumber)
-
-eth.getBlock(eth.getTransaction(transactionId).blockNumber).transactions.map(function(tx){return eth.getTransaction(tx);})
-\end{lstlisting}
+\end{itemize}
 
 \subsection{PowerBid game}
 
@@ -575,7 +568,7 @@ The \emph{TX Options} are not mandatory in case of an arbitrary smart contract b
     }
 \end{lstlisting}
 
-As described in section \ref{sec:EthSmartContracConcepts} the \emph{gas} determines the amount of operations that can be performed by the virtual machine while executing a give smart contract API call and the \emph{gasPrice} will be the reward of the individual who successfully places the transaction in a block onto the canonical chain. For these exercises the \emph{gas} field can be left empty, however the \emph{gasPrice} should be specified as if it is missing it will be estimated based on the last few blocks median gas price and depending on the exchange values it can happen easily that the transaction costs more than the gained value resulting in a net balance decrease.
+As described before the \emph{gas} determines the amount of operations that can be performed by the virtual machine while executing a give smart contract API call and the \emph{gasPrice} times the used \emph{gas} will be the reward of the individual who successfully places the transaction in a block onto the canonical chain. For these exercises the \emph{gas} field can be left empty, however the \emph{gasPrice} should be specified as if it is missing it will be estimated based on the last few blocks median gas price and depending on the exchange values it can happen easily that the transaction costs more than the gained value resulting in a net balance decrease.
 
 It's also worth mentioning that in case of a \verb!require! expression failure in the code when the transaction would be normally reverted the estimation will always fail with the same error message \emph{'gas required exceeds allowance (8000000) or always failing transaction'}, while if no estimation is needed - i.e. all options are specified, then the EVM will try to create the transaction, but it will result in a reversion due to the failed assertion with error \emph{'Transaction has been reverted by the EVM'} (see Figures \ref{fig:deploy-error-est} and \ref{fig:deploy-error-noest}). In both cases the contract's source code has to be studied for further troubleshooting. As of the time of this writing the \verb!require! expression's string parameter is not propagated to the user, but that can change in the future editions of the tool-chain as a consequence it is good practice to give meaningful diagnostics there.
 
@@ -600,11 +593,11 @@ After the auction period has ended the consumption phase begins. The consumer ca
 
 After the consumption period has passed or the consumer explicitly marked the contract as consumed by clicking on the \emph{consumePower} button the contract is open for withdrawals. The amounts can be withdrawn in any order driving the contract into the \emph{Completed} state which is a terminal state.
 
-
+\iffalse
 \begin{enumerate}[label=\textbf{Task \arabic*}:,l_tasks]
 \item After deploying a contract check its balance to clearly see that the money is upfront allocated. Observe the balance changes after every phase. \ref{lst:block}
 \end{enumerate}
-
+\fi
 \subsubsection{Game-play summary}
 
 The high-level game-play for the two different roles can be summarized as:
@@ -628,22 +621,30 @@ The high-level game-play for the two different roles can be summarized as:
     \end{enumerate}
 \end{itemize}
 
-TODO: describe interaction, game params and evaluation
-TODO: specify tasks: deploy, bid, analyze transactions, etc.
-
 \subsection{Implement a number guessing game}
 
 \subsubsection{Specification}
 
 The game participants are guessing numbers. The winner is who choose the smallest number. If a number has been chosen by more than 1 person it is not considered as a valid guess. 1 person can only guess once. The creator offers a prize that (greater than 0 Wei) is to be won by the winner. If at the end of the game there are no valid guesses the creator is considered the winner. Only the winner must be able to withdraw the prize. At construction time the owner should be able to specify the total number of guesses that will limit the number of individuals who are able to play the game. The prize mustn't be possible to be withdrawn before the game ends. The results should only be possible to be queried through the programmatic API when the game is over.
 
-\subsection{Template}
+\subsubsection{Potential solution}
 
-\section*{Acknowledgement}
-This Tutorial has been initially compiled for the audience of the 15th International Conference on Network and Service Management -- technically co-sponsored by IFIP, IEEE Communication Society, IEEE Computer Society, and ACM.
+Since Solidity is nearly a Turing-complete programming language, several higher level abstractions can be built freely therefore there is no single solution for the specification above. A reference solution can be found here:
+
+\noindent \url{https://raw.githubusercontent.com/fecjanky/iot_sc_tutorial/master/src/NumberGuessing.sol}
+
+A key element of this solution is to provide iterability over the built-in \emph{mapping} type through a linear index to lookup key mapping. Furthermore, this sample solution illustrates the usage of \emph{storage} and \emph{memory} variable references.
+
+
+\section*{Acknowledgements}
+This Tutorial has been initially compiled for the audience of the
+
+\noindent \emph{15th International Conference on Network and Service Management} -- technically co-sponsored by IFIP, IEEE Communication Society, IEEE Computer Society, and ACM.
 
 In connection to this work, the authors have received funding  from  the  EU  ECSEL JU under the H2020 Framework Programme, JU grant nr.  737459  (Productive4.0  project,  www.productive40.eu).
 Part of this work was supported by the Higher Education Excellence  Program  of  the  Ministry  of  Human  Capacities, Hungary, in the frame of Artificial Intelligence research area of Budapest University of Technology and Economics (BME FIKP-MI/SC). 
+
+\newpage
 
 \bibliographystyle{ieeetr}
 \bibliography{references}
