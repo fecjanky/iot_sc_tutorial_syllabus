@@ -55,7 +55,7 @@
 
 \author{Pal Varga and Ferenc Janky \\ Budapest University of Technology and Economics}
 
-\date{v0.92 \\ 2019}
+\date{v1.0 \\ 2019}
 
 \begin{document}
 
@@ -84,11 +84,21 @@ The hands-on part of this tutorial includes a multi-player bidding scenario.  In
 This tutorial provides a generic overview of Blockchain Technology and its feasibility for the  Industrial Internet of Things (IIoT) domain. The tutorial itself consist of three parts: (i) an oral lecture with its separate presentation material, (ii) the current syllabus providing support background material for (iii) the demo on using smart service contracts in a multi-player bidding scenario.
 
 In order to get a proper grip on the tutorial exercises, some of the main concepts of the Blockchain Technology, the Distributed Ledgers, and the Smart Service Contract are described here.
-Beside this, some of the application areas of these concepts for Industrial Internet of Things (IIoT) are discussed in brief.
+Beside this, some application areas of these concepts for Industrial Internet of Things (IIoT) are discussed in brief.
 
-The presentation material is also available for this tutorial, at ...
+The presentation material is also available for this tutorial, at
 
-The demo application for the multi-player bidding scenario is available at ...
+\url{http://alpha.tmit.bme.hu/~pvarga/CNSM_2019/iot_sc_tutorial_syllabus.pdf}.
+
+The cheat-sheet for the hands-on exercises is available at
+
+\url{http://alpha.tmit.bme.hu/~pvarga/CNSM_2019/cheat_sheet.pdf}
+
+The source code for the demo application for the multi-player bidding scenario is available at
+
+\url{https://github.com/fecjanky/iot_sc_tutorial}.
+
+The demo application can be pulled from DockerHub with tag \verb!fecjanky/iot_sc_tutorial:latest!
 
 
 \section{Motivation: using Blockchains for Industrial IoT}
@@ -316,13 +326,13 @@ In the following figures we summarize a simplified concept of Smart Contract ope
 \end{figure}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{figures/deploy_1.png}
+    \includegraphics[width=0.83\textwidth]{figures/deploy_1.png}
     \caption{User calls a function of the smart contract, VM executes code, creates transaction, mines block onto the chain}
     \label{fig:deploy_1}
 \end{figure}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{figures/deploy_2.png}
+    \includegraphics[width=0.83\textwidth]{figures/deploy_2.png}
     \caption{Another user calls a different function, at every point of time, orange data members indicate a valid state of the contract object}
     \label{fig:deploy_2}
 \end{figure}
@@ -421,7 +431,7 @@ The \href{https://blockchain.cnsm2019-tutorial.com/}{demo environment} - as illu
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{figures/env.png}
+    \includegraphics[width=0.7\textwidth]{figures/env.png}
     \caption{The tutorial environment}
     \label{fig:demo-env}
 \end{figure}
@@ -599,7 +609,7 @@ It's also worth mentioning that in case of a \verb!require! expression failure i
 
 After successful deployment the contract will show up on the left hand side listing. By clicking on a deployed contract it's controls will become visible. The auction and consumption time left fields are updated automatically, but the other fields have to be queried manually by either calling the corresponding API function (exposed as the adjacent button) or by clicking on the phase getter, that will call all non-mutable API functions. The functions that mutate the contract are marked red. The suppliers can use the \emph{bid} function to place their bids.
 
-After the auction period has ended the consumption phase begins. The consumer can end the auction prematurely but in that case a different state transition sequence begins (see Figure \ref{fig:State-diagram-powerbid}.
+After the auction period has ended the consumption phase begins. The consumer can end the auction prematurely but in that case a different state transition sequence begins (see Figure \ref{fig:State-diagram-powerbid}).
 
 After the consumption period has passed or the consumer explicitly marked the contract as consumed by clicking on the \emph{consumePower} button the contract is open for withdrawals. The amounts can be withdrawn in any order driving the contract into the \emph{Completed} state which is a terminal state.
 
