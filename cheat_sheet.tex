@@ -112,7 +112,7 @@ myFunction(arg1,arg2,...)
 
 \item  After startup create this function : 
 \begin{lstlisting}[language=javascript]
-findAddress = function(addr){ return eth.accounts.filter(function(account){ return new RegExp(addr+".*").test(account) }) } \end{lstlisting}
+findAccount = function(addr){ return eth.accounts.filter(function(account){ return new RegExp(addr+".*").test(account) }) } \end{lstlisting}
 this can be used to find an account starting with \verb!addr! e.g. \verb!findAccount("0x10db7")!
 
 \item Note: scripts can be preloaded with the \verb!--preload path/to/script.js! argument when attaching to geth if needed
