@@ -454,7 +454,7 @@ The \href{https://blockchain.cnsm2019-tutorial.com/}{demo environment} - as illu
 \subsection{Most frequently used \emph{geth} commands}
 
 \begin{itemize}
-\item the \emph{geth} console is a javascript REPL, any valid Javascript code is accepted. The commands below are actually \emph{web3} API calls, for all available commands see \url{https://web3js.readthedocs.io/en/v1.2.1/getting-started.html}
+\item the \emph{geth} console is a javascript REPL, any valid Javascript code is accepted. The commands below are actually \emph{web3} API calls, for all available commands see \cite{web3_api}
 
 \item \verb!<variable name> = <expression>! assigns the result of expression  \verb!<expression>! to the variable named \verb!<variable>!, e.g. \verb!block34 = eth.getBlock(34)! that means assign the block object of block 34 to the variable named \verb!block34!
 
@@ -631,11 +631,31 @@ The high-level game-play for the two different roles can be summarized as:
     \end{enumerate}
 \end{itemize}
 
+\subsubsection{Typical values to use}
+\begin{itemize}
+    \item \emph{gasPrice} : set to 10 Wei, otherwise the balance could drain quickly
+    \item Consumer role (contract creation):
+    \begin{itemize}
+        \item \emph{value}: somewhere betwee 900-1000 finneys
+        \item \emph{auctionPeriodSeconds}: 300 (seconds) so that will be enough time for bidding
+        \item \emph{consumptionPeriodSeconds}: 60 (seconds) is enough
+        \item \emph{requiredEnergy}: set it to 100000
+    \end{itemize}
+    \item Supplier role:
+    \begin{itemize}
+        \item when bidding don't go lower than 80\% of the \emph{maxPrice}
+    \end{itemize}
+\end{itemize}
+
 \subsection{Implement a number guessing game}
 
 \subsubsection{Specification}
 
-The game participants are guessing numbers. The winner is who choose the smallest number. If a number has been chosen by more than 1 person it is not considered as a valid guess. 1 person can only guess once. The creator offers a prize that (greater than 0 Wei) is to be won by the winner. If at the end of the game there are no valid guesses the creator is considered the winner. Only the winner must be able to withdraw the prize. At construction time the owner should be able to specify the total number of guesses that will limit the number of individuals who are able to play the game. The prize mustn't be possible to be withdrawn before the game ends. The results should only be possible to be queried through the programmatic API when the game is over.
+The game participants are guessing numbers. The winner is who choose the smallest number. If a number has been chosen by more than 1 person it is not considered as a valid guess. 1 person can only guess once. The creator offers a prize that (greater than 0 Wei) is to be won by the winner. If at the end of the game there are no valid guesses the creator is considered the winner. Only the winner must be able to withdraw the prize. At construction time the owner should be able to specify the total number of guesses that will limit the number of individuals who are able to play the game. The prize mustn't be possible to be withdrawn before the game ends. The results should only be possible to be queried through the programmatic API when the game is over. 
+
+The contract template can be downloaded from: \url{https://raw.githubusercontent.com/fecjanky/iot_sc_tutorial/master/src/NumberGuessing_template.sol}
+
+ One can use the \emph{Remix IDE} for developing smart contracts that includes the solidity compiler and also a test network to deploy and interact with the contract. It is available under \url{http://remix.ethereum.org/}
 
 \subsubsection{Potential solution}
 
@@ -644,9 +664,6 @@ Since Solidity is nearly a Turing-complete programming language, several higher 
 \noindent \url{https://raw.githubusercontent.com/fecjanky/iot_sc_tutorial/master/src/NumberGuessing.sol}
 
 A key element of this solution is to provide iterability over the built-in \emph{mapping} type through a linear index to lookup key mapping. Furthermore, this sample solution illustrates the usage of \emph{storage} and \emph{memory} variable references.
- 
- One can use the \emph{Remix IDE} for developing a smart contract that includes the solidity compiler and also a test network to deploy and interact with the contract. It is available under \url{http://remix.ethereum.org/}
- 
  
 \section*{Acknowledgements}
 This Tutorial has been initially compiled for the audience of the

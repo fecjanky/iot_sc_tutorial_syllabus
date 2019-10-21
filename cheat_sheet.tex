@@ -51,14 +51,14 @@
 
 \usepackage[margin=1in]{geometry}
 
-\title{Blockchains for Industrial IoT - a Tutorial}
+\title{Blockchains for Industrial IoT - a Tutorial \\ \large Cheat-sheet }
 
 % \subtitle{Cheat sheet}
 
 \author{Pal Varga and Ferenc Janky \\ Budapest University of Technology and Economics}
 
 
-\date{v0.9 \\ 2019}
+\date{v1.0 \\ 2019}
 
 \begin{document}
 
@@ -212,14 +212,34 @@ The high-level game-play for the two different roles can be summarized as:
         \item evaluate relative gain
     \end{enumerate}
 \end{itemize}
-\section{Demo environment/source code info}
-
-If there's a need for further experimentation with this blockchain demo environment its Docker image can be pulled from DockerHub and run by 
 
 \subsection{Typical values to use}
 \begin{itemize}
-    \item 
+    \item \emph{gasPrice} : set to 10 Wei, otherwise the balance could drain quickly
+    \item Consumer role (contract creation):
+    \begin{itemize}
+        \item \emph{value}: somewhere betwee 900-1000 finneys
+        \item \emph{auctionPeriodSeconds}: 300 (seconds) so that will be enough time for bidding
+        \item \emph{consumptionPeriodSeconds}: 60 (seconds) is enough
+        \item \emph{requiredEnergy}: set it to 100000
+    \end{itemize}
+    \item Supplier role:
+    \begin{itemize}
+        \item when bidding don't go lower than 80\% of the \emph{maxPrice}
+    \end{itemize}
 \end{itemize}
+
+\section{Implement a number guessing game}
+
+The game participants are guessing numbers. The winner is who choose the smallest number. If a number has been chosen by more than 1 person it is not considered as a valid guess. 1 person can only guess once. The creator offers a prize that (greater than 0 Wei) is to be won by the winner. If at the end of the game there are no valid guesses the creator is considered the winner. Only the winner must be able to withdraw the prize. At construction time the owner should be able to specify the total number of guesses that will limit the number of individuals who are able to play the game. The prize mustn't be possible to be withdrawn before the game ends. The results should only be possible to be queried through the programmatic API when the game is over. 
+
+The contract template can be downloaded from: \url{https://raw.githubusercontent.com/fecjanky/iot_sc_tutorial/master/src/NumberGuessing_template.sol}
+
+\emph{Remix IDE}:\url{http://remix.ethereum.org/}
+
+\section{Demo environment/source code info}
+
+If there's a need for further experimentation with this blockchain demo environment its Docker image can be pulled from DockerHub and run by 
 
 \begin{lstlisting}[language=bash]
 docker pull fecjanky/iot_sc_tutorial:latest
@@ -227,5 +247,7 @@ docker run -p 2222:22 -p 80:80 -p 443:443 fecjanky/iot_sc_tutorial:latest
 \end{lstlisting}
 
 NB.: port bindings can be changed freely
+
+The source code can be obtained from : \url{https://github.com/fecjanky/iot_sc_tutorial}
 
 \end{document}
