@@ -112,7 +112,7 @@ myFunction(arg1,arg2,...)
 
 \item  After startup create this function : 
 \begin{lstlisting}[language=javascript]
-findAccount = function(addr){ return eth.accounts.filter(function(account){ return new RegExp(addr+".*").test(account) }) } \end{lstlisting}
+findAccount = function(addr){ return eth.accounts.filter(function(account){ return new RegExp(addr+".*","i").test(account) }) } \end{lstlisting}
 this can be used to find an account starting with \verb!addr! e.g. \verb!findAccount("0x10db7")!
 
 \item Note: scripts can be preloaded with the \verb!--preload path/to/script.js! argument when attaching to geth if needed
@@ -155,7 +155,8 @@ signedTransaction = personal.signTransaction({
     value: web3.toWei(1,"ether"),
     gas: 200000, 
     gasPrice: 10,
-    nonce: eth.getTransactionCount("0x9afeD102A10D54Cc6C0E5153752c69B4876A7419")
+    nonce: 
+    eth.getTransactionCount("0x9afeD102A10D54Cc6C0E5153752c69B4876A7419")
     },"user1" )
 \end{lstlisting}
 
