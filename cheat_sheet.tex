@@ -108,16 +108,24 @@ myFunction = function(param1,param2,...) {
 myFunction(arg1,arg2,...)
 \end{lstlisting}
 
+\item \verb!eth.accounts! an array of all accounts managed by this node
+
+\item  After startup create this function : 
+\begin{lstlisting}[language=javascript]
+findAddress = function(addr){ return eth.accounts.filter(function(account){ return new RegExp(addr+".*").test(account) }) } \end{lstlisting}
+this can be used to find an account starting with \verb!addr! e.g. \verb!findAccount("0x10db7")!
+
+\item Note: scripts can be preloaded with the \verb!--preload path/to/script.js! argument when attaching to geth if needed
 
 \item \verb!eth.getBalance(<account>)! for checking the balance of an account, where \verb!<account>! is a string literal having the value of the address of an Ethereum account or a deployed smart contract, e.g. \verb!eth.getBalance("0x9afeD102A10D54Cc6C0E5153752c69B4876A7419")!
 
 \item \verb!web3.toWei(<value>,<dimension>)! for getting the equivalent value in \emph{Wei}s of the specified amount, where \verb!<value>! is a number literal and \verb!<dimension>! is a string literal having the name of a valid etherum metic, e.g. \verb!web3.toWei(3.14,"ether")!
 
-\item \verb!eth.getBlock(<block Number>)!
+\item \verb!eth.getBlock(<block Number>)! for getting a block's data specified by it's block number
 
-\item \verb!eth.getTransaction(<block Number>)!
+\item \verb!eth.getTransaction(<transaction hash>)! for getting the transaction data specified by it's transaction hash
 
-\item \verb!eth.getGasPrice(console.log)!
+\item \verb!eth.getGasPrice(console.log)! will return the median \emph{gasPrice} based on the recently mined transaction or the default \emph{gasPrice} if there hasn't been any yet
 
 \item \verb!eth.getTransactionCount(<account>,[<block specifier>])!, get the total transaction count for acount indicated by \verb!<account>!, optionally a block specifier can be supplied, e.g.: \\ \verb!eth.getTransactionCount("0x9afeD102A10D54Cc6C0E5153752c69B4876A7419","pending")! will get the transaction count for the given address including the pending transactions waiting in queue to be mined onto the blockchain
 
@@ -182,19 +190,36 @@ The game can be split up to the following main phases (a detailed state diagram 
     \label{fig:State-diagram-powerbid}
 \end{figure}
 
-TODO: describe UI controls to use in each Phase per role. add typical values
+\subsection{Game-play summary}
 
-TODO: specify game params
-
-TODO: show how the contracts can be evaluated
-
-\section{Smart Contract Programming exercise}
-
-TODO: describe task, provide hints on implementation
-
+The high-level game-play for the two different roles can be summarized as:
+\begin{itemize}
+    \item Consumer role:
+    \begin{enumerate}
+        \item Deploy contract after specifying the constructor parameters
+        \item Monitor the sell auction until the auction is ongoing.
+        \item Consume the power (virtually, calling the \emph{'consumePower'} API by pressing the corresponding button)
+        \item withdraw gains (Max. price - best price)
+        \item evaluate relative gain
+    \end{enumerate}
+    \item Producer/Supplier role:
+    \begin{enumerate}
+        \item Bid on the deployed Smart contracts
+        \item monitor bid state based on the visual feedback and/or polling the contracts
+        \item place further bids as desired
+        \item wait for consumer to consume the power
+        \item withdraw the price amount from the contracts that has been win by the user
+        \item evaluate relative gain
+    \end{enumerate}
+\end{itemize}
 \section{Demo environment/source code info}
 
-In case of there's a desire for further experimentation with this blockchain demo environment its Docker image can be pulled from DockerHub and run by 
+If there's a need for further experimentation with this blockchain demo environment its Docker image can be pulled from DockerHub and run by 
+
+\subsection{Typical values to use}
+\begin{itemize}
+    \item 
+\end{itemize}
 
 \begin{lstlisting}[language=bash]
 docker pull fecjanky/iot_sc_tutorial:latest

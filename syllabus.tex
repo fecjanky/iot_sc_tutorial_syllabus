@@ -151,10 +151,10 @@ While interoperability among IoT systems can be supported by frameworks such as 
 
 In this context, according to \cite{BC_IoT_survey}, Traceability is the capability of tracing and verifying the spatial and temporal information of a data block saved in the blockchain. Each data block saved in a blockchain is attached with a historic timestamp consequently assuring the data traceability. 
 
-Reliability of IoT data \cite{BC_IoT_survey} is the quality of IoT data being trustworthy. It can be ensured by the integrity enforced by crytographic mechanisms including asymmetric encryption algorithms, hash functions and digital signature, all of which are inherent in blockchains.
+Reliability of IoT data \cite{BC_IoT_survey} is the quality of IoT data being trustworthy. It can be ensured by the integrity enforced by cryptographic mechanisms including asymmetric encryption algorithms, hash functions and digital signature, all of which are inherent in blockchains.
 
 \subsubsection{Improved Security of IoT system-of-systems through blockchains}
-Although it is not the basic feature of the blockchain, but its message (or transacuion) initiation procedure, the data gets written to the blockchain by using PKI technologies, which covers the \emph{Confidentiality} principle.
+Although it is not the basic feature of the blockchain, but its message (or transaction) initiation procedure, the data gets written to the blockchain by using PKI technologies, which covers the \emph{Confidentiality} principle.
 
 Due to the immutable nature of data stored at the distributed ledgers, the \emph{Integrity} principle of data security gets covered -- securing against tampering, or any sorts of modifications. Furthermore, the blockchain protects for traceability.
 
@@ -178,13 +178,13 @@ Figure~\ref{fig:BC_Do_You_Need} depicts one of the rule-of-the-thumb decision di
 
 While blockchains and their related technologies can provide answers to several issues related to security, anonymity and data privacy, trust, accelerated transactions, micropayments, cost reductions by removing middlemen, ledgers as distributed and trusted databases, etc., they also raise issues that need to be covered before their wide and unquestioned use in the Industrial IoT domain.
 
-First, there is an issue with the number of transactions per second. The current, widely used blockchains can provide a few tens of transactions per second -- whereas the industrial need is more oin the thousands of transactions per second range. 
+First, there is an issue with the number of transactions per second. The current, widely used blockchains can provide a few tens of transactions per second -- whereas the industrial need is more in the thousands of transactions per second range. 
 
 Second, the mixed usage of private and public blockchains are not clearly solved in practice. While the ecosystems of given supply chains can use private blockchains, they may not easily mix with other blockchains of other private ecosystems, not to mention public blockchains and their access rights. Moreover, there is a scalability dilemma between public and private blockchains as well.
 
 Third, security. It sounds unreasonable -- too costly -- to tamper around blockchain data; but it is not impossible. Where the stakes are high, the weakest link of the chain can be a blockchain as well; with its known vulnerabilities: the 51\% attack, the race attack, finney attacks, hidden bugs in smart contracts, just to mention a few.
 
-Fourth, the legal issues. While it seems a clear advantage (in price, speed and flexibility) of not using central authorities in a multi-stakeholder environment, we are talking about rigid company structures with personal responsibilities, at the same time. It requires a hih amount of confidence in the technology as well as the legal consequences of tampering blockchain-stored data. As they say, you cannot solve social issues by using technology.
+Fourth, the legal issues. While it seems a clear advantage (in price, speed and flexibility) of not using central authorities in a multi-stakeholder environment, we are talking about rigid company structures with personal responsibilities, at the same time. It requires a high amount of confidence in the technology as well as the legal consequences of tampering blockchain-stored data. As they say, you cannot solve social issues by using technology.
 
 
 
@@ -222,9 +222,11 @@ The distributed ledger database is spread across several nodes (devices) on a pe
 
 
 \subsubsection{Cryptographic Hash Function}
-The reason to apply "hashing" on data (or the "message") put on the blockchin is making it secret so only those with proper access rights can read it, and second, making it immutable: if the message is modified, the hash value will change. After such change, it is impossible to reconstruct the original message.
+The reason to apply "hashing" on data (or the "message") put on the blockchain is making it secret so only those with proper access rights can read it, and second, making it immutable: if the message is modified, the hash value will change. After such change, it is impossible to reconstruct the original message.
 
 A cryptographic hash function (CHF) is a hash function that is suitable for use in cryptography. It is a mathematical algorithm that maps data of arbitrary size to a bit string of a fixed size (the "hash value", "hash", or "message digest") and is a one-way function, that is, a function which is practically infeasible to invert \cite{CHF}.
+
+For "An Illustrated Guide to Cryptographic Hashes" please refer to the excellent description \cite{illustrative_CHF} by Steve Friedl.
 
 \subsubsection{Mining}
 
@@ -242,7 +244,7 @@ One of the outcomes of the mining procedure is to validate the transactions of a
 The Proof of Work (PoW) is a popular consensus algorithm; and as such, it is aimed for resolving the problem of reliability in a network involving multiple unreliable nodes. The PoW is deliberately computationally intensive for miners. It is a piece of data which is difficult (costly, time-consuming) to produce but easy for others to verify and which satisfies certain requirements. Producing a proof of work can be a random process with low probability so that a lot of trial and error is required on average before a valid proof of work is generated \cite{tutorialspoint}, \cite{bitcoin_wiki}.
 
 There are several other consensus algorithms exists \cite{consensus}, one of the well known ones beside PoW (used by e.g. Bitcoin) is Proof of Stake (used by e.g. Ethereum), where the creator of the next block is called "validator" (instead of miner) and is chosen via various combinations of random selection and wealth or age (i.e., the stake).  
-%\subsubsection{Practical Byzantine Tault Tolerance}
+%\subsubsection{Practical Byzantine Fault Tolerance}
 
 \subsubsection{Merkle Tree}
 
@@ -468,6 +470,14 @@ myFunction = function(param1,param2,...) {
 myFunction(arg1,arg2,...)
 \end{lstlisting}
 
+\item \verb!eth.accounts! an array of all accounts managed by this node
+
+\item  After startup create this function : 
+\begin{lstlisting}[language=javascript]
+findAddress = function(addr){ return eth.accounts.filter(function(account){ return new RegExp(addr+".*").test(account) }) } \end{lstlisting}
+this can be used to find an account starting with \verb!addr! e.g. \verb!findAccount("0x10db7")!
+
+\item Note: scripts can be preloaded with the \verb!--preload path/to/script.js! argument when attaching to geth if needed
 
 \item \verb!eth.getBalance(<account>)! for checking the balance of an account, where \verb!<account>! is a string literal having the value of the address of an Ethereum account or a deployed smart contract, e.g. \verb!eth.getBalance("0x9afeD102A10D54Cc6C0E5153752c69B4876A7419")!
 
@@ -475,9 +485,9 @@ myFunction(arg1,arg2,...)
 
 \item \verb!eth.getBlock(<block Number>)! for displaying the given block's data
 
-\item \verb!eth.getTransaction(<block Number>)! for displaying the given transaction's data
+\item \verb!eth.getTransaction(<transaction hash>)! for displaying the given transaction's data
 
-\item \verb!eth.getGasPrice(console.log)! this function returns the median price of the last couple of executed transactions
+\item \verb!eth.getGasPrice(console.log)! will return the median \emph{gasPrice} based on the recently mined transaction or the default \emph{gasPrice} if there hasn't been any yet
 
 \item \verb!eth.getTransactionCount(<account>,[<block specifier>])!, get the total transaction count for acount indicated by \verb!<account>!, optionally a block specifier can be supplied, e.g.: \\ \verb!eth.getTransactionCount("0x9afeD102A10D54Cc6C0E5153752c69B4876A7419","pending")! will get the transaction count for the given address including the pending transactions waiting in queue to be mined onto the blockchain
 
@@ -629,13 +639,15 @@ The game participants are guessing numbers. The winner is who choose the smalles
 
 \subsubsection{Potential solution}
 
-Since Solidity is nearly a Turing-complete programming language, several higher level abstractions can be built freely therefore there is no single solution for the specification above. A reference solution can be found here:
+Since Solidity is nearly a Turing-complete programming language, several higher level abstractions can be built therefore there is no single solution for the specification above. A reference solution can be found here:
 
 \noindent \url{https://raw.githubusercontent.com/fecjanky/iot_sc_tutorial/master/src/NumberGuessing.sol}
 
 A key element of this solution is to provide iterability over the built-in \emph{mapping} type through a linear index to lookup key mapping. Furthermore, this sample solution illustrates the usage of \emph{storage} and \emph{memory} variable references.
-
-
+ 
+ One can use the \emph{Remix IDE} for developing a smart contract that includes the solidity compiler and also a test network to deploy and interact with the contract. It is available under \url{http://remix.ethereum.org/}
+ 
+ 
 \section*{Acknowledgements}
 This Tutorial has been initially compiled for the audience of the
 
